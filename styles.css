@@ -1,0 +1,426 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #0c0d12;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+.view {
+    display: none;
+    position: absolute;
+    width: 100%;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.view.active {
+    display: block;
+}
+
+/* LOGIN UI */
+#login-view {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.game-bg-grid {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px;
+    transform: rotate(-4deg) scale(1.05);
+    filter: blur(4px) brightness(0.2);
+    z-index: 1;
+}
+
+.bg-card {
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+}
+
+.login-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.login-card {
+    background: rgba(20, 22, 31, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    text-align: center;
+}
+
+.logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.logo span, .logo-sm span {
+    color: #ff3333;
+}
+
+.subtitle {
+    color: #9ea4b3;
+    font-size: 0.85rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #9ea4b3;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ff3333;
+    box-shadow: 0 0 10px rgba(255, 51, 51, 0.25);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 12px;
+    background: #ff3333;
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(255, 51, 51, 0.3);
+}
+
+#admin-trigger {
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.01);
+    cursor: pointer;
+    z-index: 10;
+}
+
+#admin-trigger:hover {
+    color: #00ff55;
+    text-shadow: 0 0 5px #00ff55;
+}
+
+/* MAIN DASHBOARD HUB */
+#hub-view {
+    background: #0a0b10;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: #12141f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo-sm {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+}
+
+.user-badge {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.robux-count {
+    color: #00ff55;
+    font-weight: 600;
+}
+
+.hub-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.hub-container h3 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 20px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: #131521;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff3333;
+}
+
+.game-img {
+    height: 130px;
+    background-size: cover;
+    background-position: center;
+}
+
+.game-info {
+    padding: 12px;
+}
+
+.game-info h4 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.reward-tag {
+    font-size: 0.75rem;
+    color: #ff3333;
+}
+
+/* POPUP PANEL MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #141724;
+    border-radius: 16px;
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #9ea4b3;
+}
+
+.modal-banner {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.task-box {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 12px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.task-box h5 {
+    color: #ff3333;
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+}
+
+.task-box p {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    background: rgba(255, 255, 255, 0.1);
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #ff3333;
+    transition: width 2s linear;
+}
+
+.status-txt {
+    font-size: 0.7rem;
+    color: #686e7a;
+    display: block;
+    margin-top: 4px;
+}
+
+.reward-payout {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.reward-payout strong {
+    color: #00ff55;
+}
+
+.btn-claim {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    background: #00ff55;
+    color: #000;
+    cursor: pointer;
+}
+
+.btn-claim.disabled {
+    background: #202330;
+    color: #4f5363;
+    cursor: not-allowed;
+}
+
+/* TERMINAL INTERFACE */
+#admin-view {
+    background: #010201;
+    padding: 20px;
+}
+
+.terminal-window {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    background: rgba(2, 4, 2, 0.96);
+    border: 1px solid #00ff55;
+    box-shadow: 0 0 25px rgba(0, 255, 85, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.terminal-header {
+    background: #0a0c0a;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #111;
+}
+
+.title-text {
+    color: #666;
+    font-size: 0.8rem;
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.logout-admin-btn {
+    background: transparent;
+    border: 1px solid #ff3333;
+    color: #ff3333;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.terminal-body {
+    padding: 20px;
+    color: #00ff55;
+}
+
+.hacker-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.hacker-table th, .hacker-table td {
+    border: 1px solid rgba(0, 255, 85, 0.2);
+    padding: 10px;
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+.hacker-table th {
+    background: rgba(0, 255, 85, 0.08);
+    color: #fff;
+}
+
+/* TRANSITION MATRIX */
+#tile-transition-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    display: grid;
+}
+
+.tile {
+    background: #010201;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.35s ease-in-out;
+}
+
+.tile.reveal {
+    opacity: 1;
+    transform: scale(1);
+    background: #00ff55;
+}

